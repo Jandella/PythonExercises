@@ -22,7 +22,7 @@ def paoloFox(segno:str):
     articolo = articoliPost[0].find_all('div', class_="td-post-content")[0]
     #take all the items
     items = articolo.find_all('div', class_="td-item")
-    #the horoscope itself is into a span element, using class to be shure it's the rigth span
+    #the horoscope itself is into a span element, using class to be sure it's the rigth span
     spanDellOroscopo = items[0].find_all('span', class_="td-sml-description")[0]
     #there are a bunch of paragraph inside the span, grab all of them
     paragrafi = spanDellOroscopo.find_all('p')
