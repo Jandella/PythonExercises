@@ -11,10 +11,10 @@ class Node:
     
     def __str__(self):
         "string representation of weighted node in .dot"
-        return "%s [label=%d]" %(self.value, self.weight)
+        return "%s [label=%s]" %(self.value, self.weight)
 
     def __repr__(self):
-        return "{ value: %s, weight: %d }" %(self.value, self.weight)
+        return "{ value: %s, weight: %s }" %(self.value, self.weight)
     
     def __hash__(self):
         return hash(str(self))
@@ -79,10 +79,10 @@ class Graph:
         visited = {}
         res = "graph G {\n"
         for vertex in self.gdict:
-            res += "\t" + vertex + "\n"
+            res += "\t" + str(vertex) + "\n"
             for edge in self.gdict[vertex]:
                 if not vertex in visited:
-                    res += "\t" + vertex + " -- " + str(edge) + "\n"
+                    res += "\t" + str(vertex) + " -- " + str(edge) + "\n"
             visited[vertex] = True    
         res += "}"
         return res
