@@ -21,11 +21,13 @@ class Node:
 
 class Graph:
     """Graph as dictionary (following Tutorials Points 
-    https://www.tutorialspoint.com/python/python_graphs.htm)"""
+    https://www.tutorialspoint.com/python/python_graphs.htm)
+    but adding weighted nodes instead of simple node.
+    Dictionary as adjacent list"""
     def __init__(self, dictGraph=None):
         if dictGraph is None:
             dictGraph = {}
-        self.gdict = dictGraph
+        self.gdict = {}
         for vertex in dictGraph:
             self.addVertex(vertex)
             for element in dictGraph[vertex]:
@@ -47,9 +49,14 @@ class Graph:
             self.gdict[vertex] = []
     
     def addEdge(self, firstVertex, secondVertex, weight):
-        if firstVertex not in self.gdict:
+        if firstVertex not in self.gdict and secondVertex not in self.gdict:
             self.gdict[firstVertex] = [Node(weight, secondVertex)]
+            self.gdict[secondVertex] = [Node(weight, firstVertex)]
         else:
+            if firstVertex not in self.gdict:
+                self.addVertex(firstVertex)
+            if secondVertex not in self.gdict:
+                self.addVertex(secondVertex)
             newnode = Node(weight, secondVertex)
             found = False
             for nodes in self.gdict[firstVertex]:
@@ -58,9 +65,6 @@ class Graph:
                     break
             if not found:
                 self.gdict[firstVertex].append(newnode)
-        if secondVertex not in self.gdict:
-            self.gdict[secondVertex] = [Node(weight, secondVertex)]
-        else:
             newnode = Node(weight, firstVertex)
             found = False
             for nodes in self.gdict[secondVertex]:
@@ -91,16 +95,14 @@ class Graph:
         othervertex = other.getVertices()
         if set(selfvertex) == set(othervertex):
             #edges are nodes, and findEdges return a list of nodes
-            edgeSelf = self.findEdges()
-            edgeOther = self.findEdges()
-            if(len(edgeSelf) == len(edgeOther)):
-                for edge in edgeSelf:
-                    if edge not in edgeOther:
-                        res = False
-                        break
+            for vertex in selfvertex:
+                adjacenceListSelf = self.gdict[vertex]
+                adjacenceListOfOther = other.gdict[vertex]
+                if set(adjacenceListOfOther) == set(adjacenceListSelf):
                     res = True
-            else:
-                res = False
+                else:
+                    res = False
+                    break
         else:
             res = False
         return res
@@ -108,7 +110,7 @@ class Graph:
 
 if __name__ == "__main__":
     graph_elements = { "a" : [Node(1,"b"), Node(2,"c")],
-                "b" : [Node(1, "a"), Node(1.5, "d")],
+                "b" : [Node(3, "a"), Node(1.5, "d")],
                 "c" : [Node(2,"a"), Node(4.5, "d")],
                 "d" : [Node(3, "e")],
                 "e" : [Node(3, "d")]
