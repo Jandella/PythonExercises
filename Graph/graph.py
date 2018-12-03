@@ -1,3 +1,5 @@
+import math
+
 class Node:
     "Node class for weighted graph"
     def __init__(self, weight, value):
@@ -106,6 +108,30 @@ class Graph:
         else:
             res = False
         return res
+
+    def is_connected(self):
+        '''
+        Defines if the graph is connected
+        A graph is connected when there is a path between every pair of vertices.
+        '''
+        for vertex in self.gdict:
+            if self.gdict[vertex] is None or not self.gdict[vertex]:
+                return False
+        return True
+
+    def Dijkstra(self, startVertex):
+        distance = {}
+        precedent = {}
+        for vertex in self.gdict:
+            distance[vertex] = math.inf
+            precedent[vertex] = None
+        distance[startVertex] = 0
+        nodes = self.getVertices()
+        while not nodes:
+            u = min(distance)
+            nodes.remove(u)
+        
+
 
 
 if __name__ == "__main__":

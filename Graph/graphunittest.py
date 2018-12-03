@@ -108,6 +108,24 @@ class TestGraphUnitTest(unittest.TestCase):
                 })
         edges = g.findEdges()
         self.assertEqual(len(edges), 5, "Not five edges")
+    
+    def test_connected_true(self):
+        g = Graph({
+            'a': [Node(1, 'b'), Node(2, 'c')],
+            'b': [Node(1, 'a'), Node(1.5, 'd')],
+            'c': [Node(2, 'a')],
+            'd': [Node(1.5, 'b')]
+        })
+        self.assertTrue(g.is_connected(), "Graph should be connected")
+
+    def test_connected_false(self):
+        g = Graph({
+            'a': [Node(1, 'b'), Node(2, 'c')],
+            'b': [Node(1, 'a')],
+            'c': [Node(2, 'a')],
+            'd': []
+        })
+        self.assertFalse(g.is_connected(), "Graph should be unconnected")
 
 if __name__ == '__main__':
     unittest.main()
