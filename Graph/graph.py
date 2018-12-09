@@ -118,18 +118,6 @@ class Graph:
             if self.gdict[vertex] is None or not self.gdict[vertex]:
                 return False
         return True
-
-    def Dijkstra(self, startVertex):
-        distance = {}
-        precedent = {}
-        for vertex in self.gdict:
-            distance[vertex] = math.inf
-            precedent[vertex] = None
-        distance[startVertex] = 0
-        nodes = self.getVertices()
-        while not nodes:
-            u = min(distance)
-            nodes.remove(u)
         
 
 

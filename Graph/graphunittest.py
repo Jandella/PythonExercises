@@ -127,5 +127,6 @@ class TestGraphUnitTest(unittest.TestCase):
         })
         self.assertFalse(g.is_connected(), "Graph should be unconnected")
 
+
 if __name__ == '__main__':
     unittest.main()
